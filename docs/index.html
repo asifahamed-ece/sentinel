@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SENTINEL — Worker Safety Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo">S</div>
+      <div>
+        <div class="header-title">SENTINEL</div>
+        <div class="header-subtitle">WORKER SAFETY MONITOR</div>
+      </div>
+    </div>
+    <div class="header-controls">
+      <div class="conn-status">
+        <span class="conn-dot" id="conn-dot"></span>
+        <span id="conn-text">Connecting…</span>
+      </div>
+      <button class="toggle-btn" id="sound-toggle">🔔</button>
+      <button class="toggle-btn" id="theme-toggle">🌙</button>
+    </div>
+  </header>
+
+  <!-- Emergency Banner -->
+  <div class="emergency-banner" id="emergency-banner">
+    ⚠ EMERGENCY — IMMEDIATE ATTENTION REQUIRED ⚠
+  </div>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-icon uptime">⏱</div>
+      <div>
+        <div class="stat-label">UPTIME</div>
+        <div class="stat-value" id="stat-uptime">00:00:00</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon packets">📡</div>
+      <div>
+        <div class="stat-label">PACKETS</div>
+        <div class="stat-value" id="stat-packets">0</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon alerts" id="stat-alerts-icon">🛡</div>
+      <div>
+        <div class="stat-label">ACTIVE ALERTS</div>
+        <div class="stat-value" id="stat-alerts">0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="main-grid">
+      <!-- Worker 1 Card -->
+      <div class="worker-card" id="worker-1">
+        <div class="card-header">
+          <div class="worker-info">
+            <div class="worker-avatar w1">W1</div>
+            <div>
+              <div class="worker-name">Worker 1</div>
+              <div class="worker-zone" id="w1-zone">—</div>
+            </div>
+          </div>
+          <span class="status-badge safe" id="w1-status-badge">SAFE</span>
+        </div>
+
+        <div class="alert-strip" id="w1-alert">
+          <span id="w1-alert-msg"></span>
+        </div>
+
+        <div class="card-body">
+          <div class="state-row">
+            <span class="fall-badge no-fall" id="w1-fall-badge">No Fall</span>
+            <div class="accel-zones">
+              <span class="accel-pill active-normal" id="w1-az-normal">Normal</span>
+              <span class="accel-pill" id="w1-az-moving">Moving</span>
+              <span class="accel-pill" id="w1-az-impact">Impact</span>
+            </div>
+          </div>
+
+          <div class="timeline-section">
+            <div class="section-label">SHIFT TIMELINE</div>
+            <div class="timeline-bar" id="w1-timeline"></div>
+          </div>
+
+          <div class="sensor-grid">
+            <div class="sensor-cell" id="w1-temp-cell">
+              <div class="sensor-icon">🌡</div>
+              <div class="sensor-value" id="w1-temp">—</div>
+              <div class="sensor-label">TEMP °C</div>
+              <div class="sparkline-wrap" id="w1-spark-temp"></div>
+            </div>
+            <div class="sensor-cell" id="w1-hum-cell">
+              <div class="sensor-icon">💧</div>
+              <div class="sensor-value" id="w1-hum">—</div>
+              <div class="sensor-label">HUMIDITY %</div>
+              <div class="sparkline-wrap" id="w1-spark-hum"></div>
+            </div>
+            <div class="sensor-cell" id="w1-gas-cell">
+              <div class="sensor-icon">☁</div>
+              <div class="sensor-value" id="w1-gas">Clear</div>
+              <div class="sensor-label">GAS</div>
+            </div>
+            <div class="sensor-cell" id="w1-sound-cell">
+              <div class="sensor-icon">🔊</div>
+              <div class="sensor-value" id="w1-sound">—</div>
+              <div class="sensor-label">SOUND DB</div>
+              <div class="sparkline-wrap" id="w1-spark-sound"></div>
+            </div>
+            <div class="sensor-cell" id="w1-hr-cell">
+              <div class="sensor-icon">❤</div>
+              <div class="sensor-value" id="w1-hr">—</div>
+              <div class="sensor-label">HEART RATE</div>
+              <div class="sparkline-wrap" id="w1-spark-hr"></div>
+            </div>
+            <div class="sensor-cell" id="w1-spo2-cell">
+              <div class="sensor-icon">🫁</div>
+              <div class="sensor-value" id="w1-spo2">—</div>
+              <div class="sensor-label">SPO2 %</div>
+              <div class="sparkline-wrap" id="w1-spark-spo2"></div>
+            </div>
+          </div>
+
+          <div class="dose-section">
+            <div class="dose-gauges">
+              <div class="gauge-container">
+                <svg class="gauge-svg" viewBox="0 0 36 36">
+                  <circle class="gauge-bg" cx="18" cy="18" r="15.5" pathLength="100"></circle>
+                  <circle id="w1-noise-fill" class="gauge-fill noise" cx="18" cy="18" r="15.5" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"></circle>
+                </svg>
+                <div id="w1-noise-pct" class="gauge-text">0%</div>
+                <div class="gauge-label">NOISE DOSE</div>
+              </div>
+              <div class="gauge-container">
+                <svg class="gauge-svg" viewBox="0 0 36 36">
+                  <circle class="gauge-bg" cx="18" cy="18" r="15.5" pathLength="100"></circle>
+                  <circle id="w1-heat-fill" class="gauge-fill heat" cx="18" cy="18" r="15.5" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"></circle>
+                </svg>
+                <div id="w1-heat-pct" class="gauge-text">0%</div>
+                <div class="gauge-label">HEAT DOSE</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <div class="battery-indicator">
+            <span>B:</span>
+            <div class="battery-bar">
+              <div class="battery-fill" id="w1-bat-fill" style="width:0%"></div>
+            </div>
+            <span id="w1-bat-pct">—%</span>
+          </div>
+          <span id="w1-last-seen">Last seen: —</span>
+        </div>
+
+        <!-- NEW: INLINE ALERT BUTTONS FOR WORKER 1 -->
+        <div class="card-alert-send">
+          <div class="alert-section-title">SEND ALERT</div>
+          <div class="alert-buttons">
+            <button class="alert-send-btn gas" data-worker="1" data-type="1">☁ Gas</button>
+            <button class="alert-send-btn sound" data-worker="1" data-type="2">🔊 Noise</button>
+            <button class="alert-send-btn heat" data-worker="1" data-type="3">🌡 Heat</button>
+            <button class="alert-send-btn general" data-worker="1" data-type="4">⚠ General</button>
+          </div>
+        </div>
+
+        <!-- NEW: ACK BUTTON CONTAINER FOR WORKER 1 -->
+        <div class="card-actions" id="w1-actions"></div>
+
+        <div class="inactive-overlay">
+          <span class="offline-text">OFFLINE</span>
+        </div>
+      </div>
+
+      <!-- Worker 2 Card -->
+      <div class="worker-card" id="worker-2">
+        <div class="card-header">
+          <div class="worker-info">
+            <div class="worker-avatar w2">W2</div>
+            <div>
+              <div class="worker-name">Worker 2</div>
+              <div class="worker-zone" id="w2-zone">—</div>
+            </div>
+          </div>
+          <span class="status-badge safe" id="w2-status-badge">SAFE</span>
+        </div>
+
+        <div class="alert-strip" id="w2-alert">
+          <span id="w2-alert-msg"></span>
+        </div>
+
+        <div class="card-body">
+          <div class="state-row">
+            <span class="fall-badge no-fall" id="w2-fall-badge">No Fall</span>
+            <div class="accel-zones">
+              <span class="accel-pill active-normal" id="w2-az-normal">Normal</span>
+              <span class="accel-pill" id="w2-az-moving">Moving</span>
+              <span class="accel-pill" id="w2-az-impact">Impact</span>
+            </div>
+          </div>
+
+          <div class="timeline-section">
+            <div class="section-label">SHIFT TIMELINE</div>
+            <div class="timeline-bar" id="w2-timeline"></div>
+          </div>
+
+          <div class="sensor-grid">
+            <div class="sensor-cell" id="w2-temp-cell">
+              <div class="sensor-icon">🌡</div>
+              <div class="sensor-value" id="w2-temp">—</div>
+              <div class="sensor-label">TEMP °C</div>
+              <div class="sparkline-wrap" id="w2-spark-temp"></div>
+            </div>
+            <div class="sensor-cell" id="w2-hum-cell">
+              <div class="sensor-icon">💧</div>
+              <div class="sensor-value" id="w2-hum">—</div>
+              <div class="sensor-label">HUMIDITY %</div>
+              <div class="sparkline-wrap" id="w2-spark-hum"></div>
+            </div>
+            <div class="sensor-cell" id="w2-gas-cell">
+              <div class="sensor-icon">☁</div>
+              <div class="sensor-value" id="w2-gas">Clear</div>
+              <div class="sensor-label">GAS</div>
+            </div>
+            <div class="sensor-cell" id="w2-sound-cell">
+              <div class="sensor-icon">🔊</div>
+              <div class="sensor-value" id="w2-sound">—</div>
+              <div class="sensor-label">SOUND DB</div>
+              <div class="sparkline-wrap" id="w2-spark-sound"></div>
+            </div>
+            <div class="sensor-cell" id="w2-hr-cell">
+              <div class="sensor-icon">❤</div>
+              <div class="sensor-value" id="w2-hr">—</div>
+              <div class="sensor-label">HEART RATE</div>
+              <div class="sparkline-wrap" id="w2-spark-hr"></div>
+            </div>
+            <div class="sensor-cell" id="w2-spo2-cell">
+              <div class="sensor-icon">🫁</div>
+              <div class="sensor-value" id="w2-spo2">—</div>
+              <div class="sensor-label">SPO2 %</div>
+              <div class="sparkline-wrap" id="w2-spark-spo2"></div>
+            </div>
+          </div>
+
+          <div class="dose-section">
+            <div class="dose-gauges">
+              <div class="gauge-container">
+                <svg class="gauge-svg" viewBox="0 0 36 36">
+                  <circle class="gauge-bg" cx="18" cy="18" r="15.5" pathLength="100"></circle>
+                  <circle id="w2-noise-fill" class="gauge-fill noise" cx="18" cy="18" r="15.5" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"></circle>
+                </svg>
+                <div id="w2-noise-pct" class="gauge-text">0%</div>
+                <div class="gauge-label">NOISE DOSE</div>
+              </div>
+              <div class="gauge-container">
+                <svg class="gauge-svg" viewBox="0 0 36 36">
+                  <circle class="gauge-bg" cx="18" cy="18" r="15.5" pathLength="100"></circle>
+                  <circle id="w2-heat-fill" class="gauge-fill heat" cx="18" cy="18" r="15.5" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"></circle>
+                </svg>
+                <div id="w2-heat-pct" class="gauge-text">0%</div>
+                <div class="gauge-label">HEAT DOSE</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <div class="battery-indicator">
+            <span>B:</span>
+            <div class="battery-bar">
+              <div class="battery-fill" id="w2-bat-fill" style="width:0%"></div>
+            </div>
+            <span id="w2-bat-pct">—%</span>
+          </div>
+          <span id="w2-last-seen">Last seen: —</span>
+        </div>
+
+        <!-- NEW: INLINE ALERT BUTTONS FOR WORKER 2 -->
+        <div class="card-alert-send">
+          <div class="alert-section-title">SEND ALERT</div>
+          <div class="alert-buttons">
+            <button class="alert-send-btn gas" data-worker="2" data-type="1">☁ Gas</button>
+            <button class="alert-send-btn sound" data-worker="2" data-type="2">🔊 Noise</button>
+            <button class="alert-send-btn heat" data-worker="2" data-type="3">🌡 Heat</button>
+            <button class="alert-send-btn general" data-worker="2" data-type="4">⚠ General</button>
+          </div>
+        </div>
+
+        <!-- NEW: ACK BUTTON CONTAINER FOR WORKER 2 -->
+        <div class="card-actions" id="w2-actions"></div>
+
+        <div class="inactive-overlay">
+          <span class="offline-text">OFFLINE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Panels -->
+    <div class="bottom-panels">
+      <div class="event-log">
+        <div class="panel-header">
+          <span class="panel-title">EVENT LOG</span>
+          <span class="panel-badge" id="event-count">0 events</span>
+        </div>
+        <div class="panel-content">
+          <div class="event-list" id="event-list">
+            <div class="event-empty">No events yet — waiting for data…</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="shift-summary">
+        <div class="panel-header">
+          <span class="panel-title">SHIFT SUMMARY</span>
+          <span class="panel-badge" id="shift-duration">00:00:00</span>
+        </div>
+        <div class="panel-content">
+          <div class="summary-grid" id="summary-grid">
+            <div class="event-empty">Waiting for worker data…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    BUILT WITH ❤ BY <span>TEAM CORE DUMPED</span> — SENTINEL v2.0
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
