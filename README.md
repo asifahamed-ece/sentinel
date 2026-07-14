@@ -6,7 +6,7 @@
 
 | Physical Wearable Prototype | Live Dashboard & Analytics | Emergency Alert & Bidirectional Comms |
 |:-------------------------:|:--------------------------:|:-----------------------------------:|
-| ![Wearable Prototype](images/Top\View.jpg) | ![Dashboard View](images/Emergency.png) | ![Side View](images/Side\View.png) |
+| ![Wearable Prototype](images/Top View.jpeg) | ![Dashboard View](images/Emergency.png) | ![Side View](images/Side View.jpeg) |
 
 ## ✨ Key Features
 
