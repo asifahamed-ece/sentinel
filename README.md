@@ -6,7 +6,7 @@
 
 | Physical Wearable Prototype | Live Dashboard & Analytics | Emergency Alert & Bidirectional Comms |
 |:-------------------------:|:--------------------------:|:-----------------------------------:|
-| ![Wearable Prototype](assets/wearable.jpg) | ![Dashboard View](assets/dashboard.png) | ![Bidirectional ESP-NOW](assets/espnow-flow.png) |
+| ![Wearable Prototype](images/Top\View.jpg) | ![Dashboard View](images/Emergency.png) | ![Side View](images/Side\View.png) |
 
 ## ✨ Key Features
 
