@@ -53,7 +53,7 @@ The worker node performs edge processing for fall detection and environmental ha
 
 | Physical Wearable Prototype | Emergency Alert & Bidirectional Comms |
 |:-------------------------:|:-----------------------------------:|
-| ![Wearable Prototype](images/Top%20View.png) | ![Side View](images/Side%20View.png) |
+| <img src="images/Top%20View.png" width="340" alt="Wearable Prototype, top view"> | <img src="images/Side%20View.png" width="340" alt="Wearable Prototype, side view"> |
 
 **Live Dashboard & Analytics**
 
