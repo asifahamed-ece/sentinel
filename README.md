@@ -6,6 +6,11 @@
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Platform: ESP32](https://img.shields.io/badge/Platform-ESP32-red.svg)](./)
+[![Version: v6.0](https://img.shields.io/badge/Version-v6.0-9b59b6.svg)](CHANGELOG.md)
+[![Firmware: C++](https://img.shields.io/badge/Firmware-C%2B%2B-00599C.svg)](./node_src)
+[![Comms: ESP-NOW 2.4 GHz](https://img.shields.io/badge/Comms-ESP--NOW%202.4%20GHz-58a6ff.svg)](#communication-protocol)
+[![Cloud: Not Required](https://img.shields.io/badge/Cloud-Not%20Required-2ea043.svg)](#overview)
+[![Latency: sub-10ms](https://img.shields.io/badge/Latency-sub--10ms-2ea043.svg)](#communication-protocol)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 ---
