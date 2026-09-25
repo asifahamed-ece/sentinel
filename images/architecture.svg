@@ -66,7 +66,7 @@
                dur="16s" repeatCount="indefinite"/>
     </circle>
     <text x="256" y="300" font-family="ui-monospace, monospace" font-size="8"
-          text-anchor="end" letter-spacing="1">
+          fill="#2ea043" text-anchor="end" letter-spacing="1">
       <animate attributeName="fill"
                values="#2ea043;#2ea043;#d29922;#d29922;#ff2d2d;#ff2d2d;#2ea043;#2ea043"
                keyTimes="0;0.25;0.25;0.625;0.625;0.8125;0.8125;1"
