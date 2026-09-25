@@ -1,0 +1,125 @@
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Copyright 2026 Team Core Dumped -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" width="960" height="300"
+     role="img" aria-labelledby="fm-title fm-desc">
+  <title id="fm-title">SENTINEL 4-stage fall detection state machine</title>
+  <desc id="fm-desc">An accelerometer trace draws itself across five stages. It holds near 1 g, dips below the 0.3 g free-fall threshold, spikes above the 3.0 g impact threshold, then settles below the 1.5 g recovery floor. A LATCHED indicator stays lit on the confirmed stage until a reset pulse releases it.</desc>
+
+  <rect width="960" height="300" fill="#0d1117"/>
+
+  <text x="24" y="28" font-family="ui-monospace, monospace" font-size="13"
+        letter-spacing="2.2" fill="#e6edf3">4-STAGE FALL DETECTION</text>
+  <text x="24" y="46" font-family="ui-monospace, monospace" font-size="9"
+        letter-spacing="1.4" fill="#7d8590">Edge safety logic · MPU6050 accelerometer sampled at 50 Hz · multi-phase gating rejects everyday movement</text>
+
+  <!-- Threshold guides. y = 190 - g * 34.5 -->
+  <g stroke="#7d8590" stroke-width="1" stroke-dasharray="4 4" stroke-opacity="0.4">
+    <line x1="90" y1="86.5" x2="920" y2="86.5"/>
+    <line x1="90" y1="138.25" x2="920" y2="138.25"/>
+    <line x1="90" y1="179.65" x2="920" y2="179.65"/>
+  </g>
+  <g font-family="ui-monospace, monospace" font-size="8" fill="#7d8590" text-anchor="end">
+    <text x="916" y="82">3.0g · IMPACT TRIGGER</text>
+    <text x="916" y="134">1.5g · RECOVERY FLOOR</text>
+    <text x="916" y="175">0.3g · FREE-FALL TRIGGER</text>
+  </g>
+
+  <!-- Accelerometer trace. Dash length is an explicit user-unit value larger
+       than the path, because pathLength is ignored by some renderers.
+       Static dashoffset 0 means a renderer without SMIL shows it complete. -->
+  <path d="M90 155 L110 153 L130 157 L150 154 L170 156 L190 152 L210 155 L228 155
+           L240 162 L252 176 L266 184 L280 185 L292 180 L304 168 L316 158 L332 152
+           L342 120 L352 82 L360 59 L368 66 L376 96 L386 128 L401 146
+           L420 149 L450 148 L480 150 L510 147 L540 149 L570 146 L600 149 L643 150
+           L680 158 L720 160 L760 157 L800 160 L851 158 L885 160 L920 158"
+        fill="none" stroke="#39c5cf" stroke-width="2" stroke-linejoin="round"
+        stroke-linecap="round" stroke-dasharray="1400" stroke-dashoffset="0">
+    <animate attributeName="stroke-dashoffset" values="1400;1400;0;0;1400;1400"
+             keyTimes="0;0.02;0.917;0.94;0.99;1" dur="12s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- Time axis, aligned to the trace segments -->
+  <g font-family="ui-monospace, monospace" font-size="8" fill="#7d8590" text-anchor="middle">
+    <text x="90" y="207">0s</text>
+    <text x="228" y="207">2s</text>
+    <text x="332" y="207">3.5s</text>
+    <text x="401" y="207">4.5s</text>
+    <text x="643" y="207">8s</text>
+    <text x="851" y="207">11s</text>
+  </g>
+
+  <!-- Stage connector, revealed on the same timeline as the trace -->
+  <line x1="90" y1="250" x2="920" y2="250" stroke="#21262d" stroke-width="1.5"
+        stroke-dasharray="1400" stroke-dashoffset="0">
+    <animate attributeName="stroke-dashoffset" values="1400;1400;0;0;1400;1400"
+             keyTimes="0;0.02;0.917;0.94;0.99;1" dur="12s" repeatCount="indefinite"/>
+  </line>
+
+  <!-- Stage nodes. Each lights and swells during its own window, so the
+       handoff reads as a state machine advancing left to right. -->
+  <g fill="#0d1117" stroke-width="2.5">
+    <circle cx="159" cy="250" r="9" stroke="#21262d">
+      <animate attributeName="stroke" values="#39c5cf;#39c5cf;#21262d;#21262d"
+               keyTimes="0;0.15;0.19;1" dur="12s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="9;9;12;12;9;9"
+               keyTimes="0;0.001;0.03;0.147;0.167;1" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="280" cy="250" r="9" stroke="#21262d">
+      <animate attributeName="stroke" values="#21262d;#39c5cf;#39c5cf;#21262d;#21262d"
+               keyTimes="0;0.167;0.292;0.315;1" dur="12s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="9;9;12;12;9;9"
+               keyTimes="0;0.167;0.19;0.272;0.292;1" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="366" cy="250" r="9" stroke="#21262d">
+      <animate attributeName="stroke" values="#21262d;#39c5cf;#39c5cf;#21262d;#21262d"
+               keyTimes="0;0.292;0.375;0.398;1" dur="12s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="9;9;12;12;9;9"
+               keyTimes="0;0.292;0.315;0.355;0.375;1" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="522" cy="250" r="9" stroke="#21262d">
+      <animate attributeName="stroke" values="#21262d;#39c5cf;#39c5cf;#21262d;#21262d"
+               keyTimes="0;0.375;0.667;0.69;1" dur="12s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="9;9;12;12;9;9"
+               keyTimes="0;0.375;0.40;0.645;0.667;1" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="781" cy="250" r="9" stroke="#39c5cf">
+      <animate attributeName="stroke" values="#21262d;#39c5cf;#39c5cf;#21262d;#21262d"
+               keyTimes="0;0.667;0.917;0.94;1" dur="12s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="9;9;12;12;9;9"
+               keyTimes="0;0.667;0.695;0.89;0.917;1" dur="12s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <g font-family="ui-monospace, monospace" font-size="9" letter-spacing="0.6"
+     fill="#e6edf3" text-anchor="middle">
+    <text x="159" y="276">NO_FALL</text>
+    <text x="280" y="276">FREE_FALL</text>
+    <text x="366" y="276">IMPACT</text>
+    <text x="522" y="276">WATCHING</text>
+    <text x="781" y="276">CONFIRMED</text>
+  </g>
+
+  <!-- Sticky SOS latch. No static opacity attribute, so a renderer without
+       SMIL shows it lit, which is the informative settled state. -->
+  <g>
+    <animate attributeName="opacity" values="0;0;1;1;0;0"
+             keyTimes="0;0.667;0.69;0.89;0.917;1" dur="12s" repeatCount="indefinite"/>
+    <rect x="733" y="219" width="96" height="18" rx="9" fill="#ff2d2d"/>
+    <text x="781" y="231.5" font-family="ui-monospace, monospace" font-size="8"
+          font-weight="700" letter-spacing="1.4" fill="#0d1117"
+          text-anchor="middle">LATCHED</text>
+  </g>
+
+  <!-- Reset pulse, released by BTN_RESET or RESCUE ACK. Deliberate exception
+       to the static-state rule: a reset is a transient, not the settled
+       state, so the unanimated markup hides it. Showing it lit next to
+       LATCHED would be self-contradictory. -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0"
+             keyTimes="0;0.917;0.925;0.95;0.97;1" dur="12s" repeatCount="indefinite"/>
+    <rect x="843" y="219" width="66" height="18" rx="9" fill="#2ea043"/>
+    <text x="876" y="231.5" font-family="ui-monospace, monospace" font-size="8"
+          font-weight="700" letter-spacing="1.4" fill="#0d1117"
+          text-anchor="middle">RESET</text>
+  </g>
+</svg>
