@@ -1,3 +1,5 @@
+![SENTINEL banner: the wordmark wipes in from left to right over a heartbeat trace that pulses once every three seconds, above the subtitle "Real-time Worker Safety and Health Monitor" and a slowly pulsing green status dot.](images/banner.svg)
+
 # SENTINEL — Smart Emergency & Health Tracking System
 
 > Real-time wearable IoT safety monitor for industrial workers. Low-cost, offline-ready, and engineered for rapid emergency response using bidirectional ESP-NOW communication.
@@ -63,6 +65,11 @@ The worker node performs edge processing for fall detection and environmental ha
 
 ## System Architecture
 
+![Animated system architecture: two worker wearable nodes on the left send 55-byte telemetry packets over an ESP-NOW 2.4 gigahertz channel 1 to an admin hub in the middle, which forwards JSON over a WebSocket to the operator dashboard on the right. The dashboard badge steps from safe through warn to emergency as the packet cadence quickens from one packet every two seconds to one every half second, an emergency banner slides in, and a 20-byte command packet travels back to release the alert. Below, a packet inspector decodes the 55-byte frame field by field at its real byte offsets, with a sweep marking each transmission and the readings stepping from nominal through warning to emergency: temperature 31 to 44 degrees Celsius, sound 72 to 93 decibels, heart rate 78 to 152 beats per minute, and blood oxygen falling from 98 to 89 percent.](images/architecture.svg)
+
+<details>
+<summary>Plain-text architecture diagram</summary>
+
 ```
                       ┌─────────────────────────────────┐
                       │    Worker Wearable Node(s)      │
@@ -96,6 +103,8 @@ The worker node performs edge processing for fall detection and environmental ha
                       │  - Emergency Acknowledgment     │
                       └─────────────────────────────────┘
 ```
+
+</details>
 
 ---
 
@@ -245,6 +254,11 @@ inline uint8_t computeChecksum(const HubCommand* cmd) {
 
 To prevent false triggers from normal industrial motions (bending, jumping, fast walking), SENTINEL evaluates acceleration vectors sequentially:
 
+![Animated fall detection state machine: an accelerometer trace draws itself across five stages, holding near 1 g, dipping below the 0.3 g free-fall trigger, spiking above the 3.0 g impact trigger, then settling below the 1.5 g recovery floor. A LATCHED indicator stays lit on the confirmed stage until a reset pulse releases it.](images/fall-machine.svg)
+
+<details>
+<summary>Plain-text state machine diagram</summary>
+
 ```
  [ NO_FALL ]
       │  Total Accel < 0.3g (Free Fall)
@@ -260,6 +274,8 @@ To prevent false triggers from normal industrial motions (bending, jumping, fast
       ▼
  [ FALL_CONFIRMED ] ──► (Latches until BTN_RESET or RESCUE ACK)
 ```
+
+</details>
 
 ### Safety Classification Matrix
 
@@ -318,12 +334,15 @@ sentinel/
 │   ├── index.html             #   UI markup, cards & gauge SVG templates
 │   ├── style.css              #   Dark industrial styling & animations
 │   └── app.js                 #   WebSocket client, sparklines, event log & mock engine
-├── images/                    # Hardware prototype and UI screenshots
+├── images/                    # Screenshots & animated README visuals
 │   ├── Emergency.png          #   Dashboard emergency alert state
 │   ├── Normal.png             #   Dashboard nominal operation
 │   ├── Perfboard.jpeg         #   Hardware assembly & soldering
 │   ├── Side View.png          #   Enclosure profile
-│   └── Top View.png           #   Enclosure top view
+│   ├── Top View.png           #   Enclosure top view
+│   ├── banner.svg             #   Animated hero banner (pure SMIL, no scripts)
+│   ├── architecture.svg       #   Animated system architecture & live data flow
+│   └── fall-machine.svg       #   Animated 4-stage fall detection state machine
 ├── .github/                   # GitHub templates & community config
 │   ├── ISSUE_TEMPLATE/        #   Issue forms for bug reports & feature requests
 │   └── pull_request_template.md

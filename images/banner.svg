@@ -1,0 +1,85 @@
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Copyright 2026 Team Core Dumped -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 180" width="800" height="180"
+     role="img" aria-labelledby="bn-title bn-desc">
+  <title id="bn-title">SENTINEL</title>
+  <desc id="bn-desc">Animated banner. The SENTINEL wordmark wipes in over a heartbeat trace that thumps once every three seconds, above the subtitle Real-time Worker Safety and Health Monitor and a pulsing green status dot.</desc>
+
+  <defs>
+    <linearGradient id="bn-word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#39c5cf"/>
+      <stop offset="1" stop-color="#58a6ff"/>
+    </linearGradient>
+    <clipPath id="bn-wipe">
+      <rect x="40" y="42" width="740" height="52">
+        <animate attributeName="width" values="740;0;740" keyTimes="0;0.2;1"
+                 dur="6s" repeatCount="indefinite"/>
+      </rect>
+    </clipPath>
+  </defs>
+
+  <rect width="800" height="180" fill="#0d1117"/>
+
+  <!-- Top accent bar with a sweeping highlight -->
+  <rect x="0" y="0" width="800" height="3" fill="#21262d"/>
+  <rect x="0" y="0" width="150" height="3" fill="url(#bn-word)">
+    <animateTransform attributeName="transform" type="translate"
+                      from="0 0" to="650 0" dur="6s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Wordmark. Static clip width is fully open, so a renderer that ignores
+       SMIL shows the complete wordmark. -->
+  <g clip-path="url(#bn-wipe)">
+    <text x="40" y="82" font-family="ui-monospace, monospace" font-size="52"
+          font-weight="700" letter-spacing="12" fill="url(#bn-word)">SENTINEL</text>
+  </g>
+
+  <text x="43" y="110" font-family="ui-monospace, monospace" font-size="11"
+        letter-spacing="3.4" fill="#7d8590">REAL-TIME WORKER SAFETY &amp; HEALTH MONITOR</text>
+
+  <!-- Heartbeat trace. Dash length is an explicit user-unit value larger than
+       the path, because pathLength is ignored by some renderers such as
+       librsvg. Static dashoffset is 0, i.e. fully drawn. -->
+  <path d="M40 146 H180 l12 -5 l9 12 l9 -26 l10 19 H420 l12 -5 l9 12 l9 -26 l10 19 H756"
+        fill="none" stroke="#39c5cf" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" stroke-dasharray="1000" stroke-dashoffset="0">
+    <animate attributeName="stroke-dashoffset" values="1000;1000;0;0;1000"
+             keyTimes="0;0.1;0.367;0.833;1" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-opacity" values="1;1;0.3;1;1"
+             keyTimes="0;0.42;0.5;0.58;1" dur="6s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- Status dot -->
+  <circle cx="44" cy="168" r="3.5" fill="#2ea043">
+    <animate attributeName="r" values="3.5;3.5;4.6;3.5" keyTimes="0;0.72;0.83;1"
+             dur="6s" repeatCount="indefinite"/>
+  </circle>
+
+  <text x="58" y="172" font-family="ui-monospace, monospace" font-size="10"
+        letter-spacing="1.6" fill="#7d8590">ESP32 · ESP-NOW 2.4 GHz · OFFLINE-READY</text>
+
+  <!-- Sensor marks, staggered fade-in. No static opacity attribute, so the
+       static state shows them all present. -->
+  <g fill="#21262d" stroke="#39c5cf" stroke-width="1.2">
+    <rect x="664" y="159" width="14" height="14" rx="2">
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.1667;0.2;1"
+               dur="6s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="688" y="159" width="14" height="14" rx="7">
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.1917;0.225;1"
+               dur="6s" repeatCount="indefinite"/>
+    </rect>
+    <path d="M712 173 L719 159 L726 173 Z">
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.2167;0.25;1"
+               dur="6s" repeatCount="indefinite"/>
+    </path>
+    <path d="M744 159 L751 166 L744 173 L737 166 Z">
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.2417;0.275;1"
+               dur="6s" repeatCount="indefinite"/>
+    </path>
+    <rect x="758" y="159" width="14" height="14" rx="2">
+      <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.2667;0.3;1"
+               dur="6s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+</svg>
