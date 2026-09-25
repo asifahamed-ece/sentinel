@@ -1,3 +1,5 @@
+![SENTINEL banner: the wordmark wipes in from left to right over a heartbeat trace that pulses once every three seconds, above the subtitle "Real-time Worker Safety and Health Monitor" and a slowly pulsing green status dot.](images/banner.svg)
+
 # SENTINEL — Smart Emergency & Health Tracking System
 
 > Real-time wearable IoT safety monitor for industrial workers. Low-cost, offline-ready, and engineered for rapid emergency response using bidirectional ESP-NOW communication.
@@ -5,8 +7,6 @@
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Platform: ESP32](https://img.shields.io/badge/Platform-ESP32-red.svg)](./)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-
-![SENTINEL banner: the wordmark wipes in from left to right over a heartbeat trace that pulses once every three seconds, above the subtitle "Real-time Worker Safety and Health Monitor" and a slowly pulsing green status dot.](images/banner.svg)
 
 ---
 
