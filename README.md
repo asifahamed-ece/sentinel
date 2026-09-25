@@ -51,9 +51,13 @@ The worker node performs edge processing for fall detection and environmental ha
 
 ## Project Gallery
 
-| Physical Wearable Prototype | Live Dashboard & Analytics | Emergency Alert & Bidirectional Comms |
-|:-------------------------:|:--------------------------:|:-----------------------------------:|
-| ![Wearable Prototype](images/Top%20View.png) | ![Dashboard View](images/Emergency.png) | ![Side View](images/Side%20View.png) |
+| Physical Wearable Prototype | Emergency Alert & Bidirectional Comms |
+|:-------------------------:|:-----------------------------------:|
+| ![Wearable Prototype](images/Top%20View.png) | ![Side View](images/Side%20View.png) |
+
+**Live Dashboard & Analytics**
+
+![Dashboard View](images/Emergency.png)
 
 ---
 
