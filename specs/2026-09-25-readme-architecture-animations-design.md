@@ -49,7 +49,7 @@ click, no tooltips. This is a GitHub platform limit, not a design shortcut.
 ## Non-goals
 
 - No changes to `node_src/`, `admin_src/`, or anything under `docs/`.
-- No change to the Hub's LittleFS upload procedure in `CONTRIBUTING.md`; `assets/` is not part of
+- No change to the Hub's LittleFS upload procedure in `CONTRIBUTING.md`; `images/` is not part of
   the filesystem image.
 - No hover, click, or pointer interaction.
 - Light/dark theme variants. Each SVG is theme-agnostic by baking in its own panel background.
@@ -58,7 +58,7 @@ click, no tooltips. This is a GitHub platform limit, not a design shortcut.
 
 ## Assets
 
-Three files under a new `assets/` directory. Each begins with the repository's standard header:
+Three files added to the existing `images/` directory alongside the screenshots. Each begins with the repository's standard header:
 
 ```xml
 <!-- SPDX-License-Identifier: Apache-2.0 -->
@@ -67,9 +67,9 @@ Three files under a new `assets/` directory. Each begins with the repository's s
 
 | File | Purpose | Target size |
 |---|---|---|
-| `assets/banner.svg` | Slim hero beneath the title | ~6 KB |
-| `assets/architecture.svg` | System architecture and live data flow | ~18 KB |
-| `assets/fall-machine.svg` | 4-stage fall detection state machine | ~12 KB |
+| `images/banner.svg` | Slim hero beneath the title | ~6 KB |
+| `images/architecture.svg` | System architecture and live data flow | ~18 KB |
+| `images/fall-machine.svg` | 4-stage fall detection state machine | ~12 KB |
 
 README.md is the only existing file modified.
 
@@ -133,7 +133,7 @@ firmware behaviour of 2 s nominal tightening to 500 ms under emergency. Layer A 
 legible 2 s on screen; layer B runs at a legible 0.5 s. The absolute on-screen speed is scaled for
 readability and is not a literal millisecond-accurate simulation.
 
-## Asset 1: `assets/banner.svg`
+## Asset 1: `images/banner.svg`
 
 `viewBox="0 0 800 180"`. Loop 6 s.
 
@@ -154,7 +154,7 @@ readability and is not a literal millisecond-accurate simulation.
 **Static state:** wordmark fully visible and unrevealed-clip, trace fully drawn, subtitle at full
 opacity, dot visible, glyphs present.
 
-## Asset 2: `assets/architecture.svg`
+## Asset 2: `images/architecture.svg`
 
 `viewBox="0 0 960 440"`. Loop 16 s. Three column bands.
 
@@ -205,7 +205,7 @@ misrepresent the system's most distinctive behaviour.
 channel labels legible, one packet resting mid-span on each link, all rings in the SAFE green, the
 emergency banner collapsed. A reader on a renderer that strips SMIL sees the entire architecture.
 
-## Asset 3: `assets/fall-machine.svg`
+## Asset 3: `images/fall-machine.svg`
 
 `viewBox="0 0 960 300"`. Loop 12 s.
 
@@ -271,13 +271,13 @@ Three insertion points, and no others.
 Markdown form for each embed:
 
 ```markdown
-![Full-sentence description of what the animation shows and how it moves.](assets/<name>.svg)
+![Full-sentence description of what the animation shows and how it moves.](images/<name>.svg)
 ```
 
 The alt text is the accessible name for an `<img>`-embedded SVG, so it is a complete sentence
 describing both content and motion, not a label like "architecture diagram".
 
-Additionally, `assets/` is added to the `## Project Structure` tree in the README so the new
+Additionally, `images/` is added to the `## Project Structure` tree in the README so the new
 directory is documented alongside the existing ones.
 
 ## Accessibility

@@ -4,7 +4,7 @@
 
 **Goal:** Replace the two static ASCII diagrams in the SENTINEL README with three pure-SMIL animated SVG files that show the project structure, the bidirectional transmission path, and the fall-detection state machine.
 
-**Architecture:** Three standalone `.svg` files under a new `assets/` directory, each a self-contained SMIL scene with its own master timeline. No JavaScript, no CSS, no external resources, no build step. `README.md` embeds them at three points and retains the original ASCII art inside `<details>` elements.
+**Architecture:** Three standalone `.svg` files under the existing `images/` directory, each a self-contained SMIL scene with its own master timeline. No JavaScript, no CSS, no external resources, no build step. `README.md` embeds them at three points and retains the original ASCII art inside `<details>` elements.
 
 **Tech Stack:** SVG 1.1 with SMIL (`<animate>`, `<animateTransform>`, `<animateColor>`, `<set>`, `<clipPath>`). Generic font families only. Verified in Chrome via Playwright.
 
@@ -58,10 +58,10 @@ matches the spec document's own location.
 
 | Path | Action | Responsibility |
 |---|---|---|
-| `assets/banner.svg` | Create | Hero banner. 800×180, 6 s loop. Wordmark reveal, ECG trace, status dot, glyph row. |
-| `assets/fall-machine.svg` | Create | Fall state machine. 960×300, 12 s loop. Accel trace against real thresholds, five stages, latch. |
-| `assets/architecture.svg` | Create | System architecture and data flow. 960×460, 16 s loop. Three column bands, two channels, return path, 16 s state arc. |
-| `README.md` | Modify | Three embeds, two `<details>` wrappers, three alt texts, `assets/` in the Project Structure tree. |
+| `images/banner.svg` | Create | Hero banner. 800×180, 6 s loop. Wordmark reveal, ECG trace, status dot, glyph row. |
+| `images/fall-machine.svg` | Create | Fall state machine. 960×300, 12 s loop. Accel trace against real thresholds, five stages, latch. |
+| `images/architecture.svg` | Create | System architecture and data flow. 960×460, 16 s loop. Three column bands, two channels, return path, 16 s state arc. |
+| `README.md` | Modify | Three embeds, two `<details>` wrappers, three alt texts, `images/` in the Project Structure tree. |
 | `/tmp/opencode/svgcheck/` | Create, **not committed** | HTTP server, capture harness, pixel measurement. |
 
 Tasks are ordered by dependency. Task 1 proves the two hardest SMIL techniques in isolation so
@@ -69,12 +69,12 @@ Tasks 2 and 3 can rely on them. Task 3 depends on both. Task 4 depends on all th
 
 ---
 
-## Task 1: `assets/banner.svg`
+## Task 1: `images/banner.svg`
 
 Proves the clipPath reveal and the dashoffset draw, and establishes the static-state rule.
 
 **Files:**
-- Create: `assets/banner.svg`
+- Create: `images/banner.svg`
 - Create (not committed): `/tmp/opencode/svgcheck/serve.sh`, `/tmp/opencode/svgcheck/measure.py`
 
 **Interfaces:**
@@ -100,7 +100,7 @@ Start it in the background and confirm it responds:
 chmod +x /tmp/opencode/svgcheck/serve.sh
 nohup /tmp/opencode/svgcheck/serve.sh >/tmp/opencode/svgcheck/serve.log 2>&1 &
 sleep 1.5
-curl -s -o /dev/null -w "%{http_code}\n" http://localhost:8777/assets/banner.svg
+curl -s -o /dev/null -w "%{http_code}\n" http://localhost:8777/images/banner.svg
 ```
 
 Expected: `200`.
@@ -152,7 +152,7 @@ for y in range(h):
 print(f"{sys.argv[1]} px={len(xs)} cx={sum(xs)/len(xs):.1f}" if xs else f"{sys.argv[1]} NONE")
 ```
 
-### Step 2: Write `assets/banner.svg`
+### Step 2: Write `images/banner.svg`
 
 `viewBox="0 0 800 180"`, `width="800"`, `height="180"`. Master loop **6 s**.
 
@@ -216,7 +216,7 @@ which is a single pulse well under the 2 Hz ceiling.
 `rsvg-convert` ignores SMIL entirely, so it renders exactly what a SMIL-stripped renderer sees:
 
 ```bash
-rsvg-convert -w 800 assets/banner.svg -o /tmp/opencode/svgcheck/banner_static.png
+rsvg-convert -w 800 images/banner.svg -o /tmp/opencode/svgcheck/banner_static.png
 magick identify /tmp/opencode/svgcheck/banner_static.png
 ```
 
@@ -232,7 +232,7 @@ how GitHub embeds it:
 ```html
 <!DOCTYPE html><meta charset="utf-8">
 <body style="margin:0;background:#ffffff">
-<img src="/assets/banner.svg" width="800">
+<img src="/images/banner.svg" width="800">
 </body>
 ```
 
@@ -254,26 +254,26 @@ frames render at t=0 regardless of the budget. Real-time waits are required.
 ### Step 5: Check the size budget
 
 ```bash
-wc -c assets/banner.svg
+wc -c images/banner.svg
 ```
 
 Expected: under 6000 bytes.
 
 ---
 
-## Task 2: `assets/fall-machine.svg`
+## Task 2: `images/fall-machine.svg`
 
 Proves the shared `keyTimes` timeline, where one timeline drives both a drawn trace and a
 sequence of discrete stage highlights that must not drift apart.
 
 **Files:**
-- Create: `assets/fall-machine.svg`
+- Create: `images/fall-machine.svg`
 
 **Interfaces:**
 - Consumes: the capture harness and `keyTimes` technique from Task 1.
 - Produces: the shared-timeline pattern reused by Task 3.
 
-### Step 1: Write `assets/fall-machine.svg`
+### Step 1: Write `images/fall-machine.svg`
 
 `viewBox="0 0 960 300"`, `width="960"`, `height="300"`. Master loop **12 s**.
 
@@ -323,7 +323,7 @@ all five nodes present and labelled; all three threshold guides visible; `LATCHE
 ### Step 2: Verify the static state
 
 ```bash
-rsvg-convert -w 960 assets/fall-machine.svg -o /tmp/opencode/svgcheck/fm_static.png
+rsvg-convert -w 960 images/fall-machine.svg -o /tmp/opencode/svgcheck/fm_static.png
 magick identify /tmp/opencode/svgcheck/fm_static.png
 ```
 
@@ -343,19 +343,19 @@ the wrapper and waiting N seconds is the whole procedure; there is no seek contr
 ### Step 4: Check the size budget
 
 ```bash
-wc -c assets/fall-machine.svg
+wc -c images/fall-machine.svg
 ```
 
 Expected: under 12000 bytes.
 
 ---
 
-## Task 3: `assets/architecture.svg`
+## Task 3: `images/architecture.svg`
 
 The main visual. Two stacked packet layers cross-faded on a 16 s master timeline.
 
 **Files:**
-- Create: `assets/architecture.svg`
+- Create: `images/architecture.svg`
 
 **Interfaces:**
 - Consumes: the `keyTimes` timeline technique from Task 2 and the `<details>`-free static-state
@@ -469,7 +469,7 @@ reset. Noise ends near 82 %, heat near 70 %.
 ### Step 4: Verify the static state
 
 ```bash
-rsvg-convert -w 960 assets/architecture.svg -o /tmp/opencode/svgcheck/ar_static.png
+rsvg-convert -w 960 images/architecture.svg -o /tmp/opencode/svgcheck/ar_static.png
 magick identify /tmp/opencode/svgcheck/ar_static.png
 ```
 
@@ -494,7 +494,7 @@ into the 16 s loop. Confirm:
 ### Step 6: Check the size budget
 
 ```bash
-wc -c assets/architecture.svg
+wc -c images/architecture.svg
 ```
 
 Expected: under 20000 bytes.
@@ -507,7 +507,7 @@ Expected: under 20000 bytes.
 - Modify: `README.md`
 
 **Interfaces:**
-- Consumes: `assets/banner.svg`, `assets/architecture.svg`, `assets/fall-machine.svg` from
+- Consumes: `images/banner.svg`, `images/architecture.svg`, `images/fall-machine.svg` from
   Tasks 1–3.
 - Produces: the final deliverable. No task depends on this one.
 
@@ -519,7 +519,7 @@ After the badge row:
 [![Platform: ESP32](https://img.shields.io/badge/Platform-ESP32-red.svg)](./)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-![SENTINEL banner: the wordmark wipes in over a heartbeat trace that pulses once every three seconds, above the words REAL-TIME WORKER SAFETY MONITOR and a green status dot.](assets/banner.svg)
+![SENTINEL banner: the wordmark wipes in over a heartbeat trace that pulses once every three seconds, above the words REAL-TIME WORKER SAFETY MONITOR and a green status dot.](images/banner.svg)
 ```
 
 ### Step 2: Replace the architecture ASCII block
@@ -528,7 +528,7 @@ Under `## System Architecture`, replace the fenced code block with the embed, ke
 ASCII inside `<details>`:
 
 ````markdown
-![Animated system architecture: two worker wearable nodes on the left send 55-byte telemetry packets over an ESP-NOW 2.4 GHz channel 1 to an admin hub in the middle, which forwards JSON over a WebSocket to the operator dashboard on the right. The dashboard badge steps from SAFE through WARN to EMERGENCY as packet cadence quickens from two seconds to half a second, an emergency banner slides in, and a 20-byte command packet travels back to release the alert.](assets/architecture.svg)
+![Animated system architecture: two worker wearable nodes on the left send 55-byte telemetry packets over an ESP-NOW 2.4 GHz channel 1 to an admin hub in the middle, which forwards JSON over a WebSocket to the operator dashboard on the right. The dashboard badge steps from SAFE through WARN to EMERGENCY as packet cadence quickens from two seconds to half a second, an emergency banner slides in, and a 20-byte command packet travels back to release the alert.](images/architecture.svg)
 
 <details>
 <summary>Plain-text architecture diagram</summary>
@@ -545,7 +545,7 @@ ASCII inside `<details>`:
 Under `## Edge Safety Logic & Thresholds`, same treatment:
 
 ````markdown
-![Animated fall detection state machine: an accelerometer trace draws itself across five stages, dipping below 0.3 g in free fall, spiking above 3.0 g at impact, then settling below 1.5 g. A LATCHED indicator stays lit on the confirmed stage until a reset pulse releases it.](assets/fall-machine.svg)
+![Animated fall detection state machine: an accelerometer trace draws itself across five stages, dipping below 0.3 g in free fall, spiking above 3.0 g at impact, then settling below 1.5 g. A LATCHED indicator stays lit on the confirmed stage until a reset pulse releases it.](images/fall-machine.svg)
 
 <details>
 <summary>Plain-text state machine diagram</summary>
@@ -557,15 +557,16 @@ Under `## Edge Safety Logic & Thresholds`, same treatment:
 </details>
 ````
 
-### Step 4: Add `assets/` to the Project Structure tree
+### Step 4: Add the SVGs to the `images/` Project Structure tree
 
 In the `## Project Structure` fenced block, add:
 
 ```
-├── assets/                   # Animated README architecture & state-machine visuals
-│   ├── banner.svg            #   Hero banner
-│   ├── architecture.svg      #   System architecture & live data flow
-│   └── fall-machine.svg      #   4-stage fall detection state machine
+├── images/                   # Screenshots & animated README visuals
+│   ├── ...existing PNG/JPEG entries unchanged...
+│   ├── banner.svg            #   Animated hero banner
+│   ├── architecture.svg      #   Animated system architecture & live data flow
+│   └── fall-machine.svg      #   Animated 4-stage fall detection state machine
 ```
 
 Place it after `images/` to keep the diagram entries grouped.
@@ -573,7 +574,7 @@ Place it after `images/` to keep the diagram entries grouped.
 ### Step 5: Verify the links resolve
 
 ```bash
-for f in assets/banner.svg assets/architecture.svg assets/fall-machine.svg; do
+for f in images/banner.svg images/architecture.svg images/fall-machine.svg; do
   printf "%-32s %s\n" "$f" "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8777/$f)"
 done
 ```
@@ -601,7 +602,7 @@ No new files. Confirms the whole deliverable.
 git status --short
 ```
 
-Expected: only the three `assets/*.svg` files and `README.md`. Nothing from
+Expected: only the three `images/*.svg` files and `README.md`. Nothing from
 `/tmp/opencode/svgcheck/` and no `wrap.html` in the repo.
 
 ### Step 2: Confirm the rest of the repository is untouched
@@ -616,7 +617,7 @@ firmware, so `CONTRIBUTING.md`'s three-file upload list must remain correct as w
 ### Step 3: Confirm no forbidden constructs
 
 ```bash
-rg -n "<script|<style|@keyframes|xlink:href=\"http|@import|font-family=\"[^u]" assets/
+rg -n "<script|<style|@keyframes|xlink:href=\"http|@import|font-family=\"[^u]" images/
 ```
 
 Expected: no matches. Generic font families are the only permitted ones, and
@@ -625,7 +626,7 @@ the pattern is what distinguishes them.
 
 ### Step 4: Confirm the flash-rate ceiling
 
-Count the emergency pulse cycles in `assets/architecture.svg`. The banner envelope steps from
+Count the emergency pulse cycles in `images/architecture.svg`. The banner envelope steps from
 `0.92` to `0.55` and back three times across the 3 s emergency window, which is 1 Hz. Confirm no
 animation anywhere has a `dur` short enough to imply more than 2 Hz, that is, no looping
 animation with a period under 500 ms.
@@ -639,7 +640,7 @@ at the same elapsed time would give immediately. A visible jump or reset indicat
 ### Step 6: Confirm the flash-rate and size budgets one final time
 
 ```bash
-wc -c assets/*.svg
+wc -c images/*.svg
 ```
 
 Expected: all three under 20000 bytes and under the 100 KB ceiling.
@@ -667,7 +668,7 @@ is answered by the static-state rule and the size budget.
 fall machine, and the emergency pulse.
 
 **Type and name consistency.** ID prefixes `bn-`, `fm-`, `ar-` are used consistently. The three
-filenames `assets/banner.svg`, `assets/architecture.svg`, `assets/fall-machine.svg` are identical
+filenames `images/banner.svg`, `images/architecture.svg`, `images/fall-machine.svg` are identical
 across the tasks that create them and the task that embeds them. Loop durations 6 s, 12 s, and
 16 s match between the task that creates each file and the task that verifies its phases. The
 `measure.py` argument order, PNG path then hex colour with no `#`, is consistent with its own
