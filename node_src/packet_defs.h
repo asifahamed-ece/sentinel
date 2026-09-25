@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 Team Core Dumped
 // ============================================================
 //  SENTINEL — Shared Packet Definitions v1.0 (Final Synced)
 //  Team Core Dumped © 2026

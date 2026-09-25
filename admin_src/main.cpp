@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 Team Core Dumped
 // ============================================================
 //  SENTINEL Admin Hub — Full Duplex, Manual ACK, Inline Alerts
 //  Fixed: dynamic peer, debug prints, channel enforcement

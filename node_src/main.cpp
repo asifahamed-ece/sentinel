@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 Team Core Dumped
 // ============================================================
 //  SENTINEL Worker Node v6.4 — Fixed OLED & Alert Beep
 // ============================================================

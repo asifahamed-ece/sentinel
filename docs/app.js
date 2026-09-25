@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+/* Copyright 2026 Team Core Dumped */
 /* ============================================================
 SENTINEL Dashboard v2 — Fixed Sound, Timeline & Summary
 ============================================================ */
