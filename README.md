@@ -2,6 +2,10 @@
 
 > Real-time wearable IoT safety monitor for industrial workers. Low-cost, offline-ready, and engineered for rapid emergency response using bidirectional ESP-NOW communication.
 
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
+[![Platform: ESP32](https://img.shields.io/badge/Platform-ESP32-red.svg)](./)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
 ## 📸 Project Gallery
 
 | Physical Wearable Prototype | Live Dashboard & Analytics | Emergency Alert & Bidirectional Comms |
@@ -35,20 +39,35 @@
 
 ## ⚙️ Quick Setup
 
-1. Flash `Admin_v6.ino` to the Hub ESP32 & `Worker_v6.ino` to each worker node.
-2. Upload `index.html`, `style.css`, and `app.js` to ESP32 LittleFS.
+1. Flash [`admin_src/main.cpp`](./admin_src/main.cpp) to the Hub ESP32 and [`node_src/main.cpp`](./node_src/main.cpp) to each worker node (with `packet_defs.h` alongside). See [CONTRIBUTING.md](./CONTRIBUTING.md) for toolchain and pin setup.
+2. Upload `index.html`, `style.css`, and `app.js` from [`docs/`](./docs) to the Hub's ESP32 LittleFS.
 3. Connect to `SENTINEL-HUB` WiFi, open `http://192.168.4.1` in any browser.
 4. Power on workers – they auto-register and begin streaming telemetry.
 
 ## 📖 Documentation & References
 
-- 📄 [Project Report & PPT](./docs/final-review-ppt.pdf)
+- 📄 The project report & presentation deck are available from the [team below](#-team--credits) on request (not tracked in this repository)
 - 🔬 Based on research in wearable IoT safety systems & ESP-NOW field performance analysis
 - 📚 Referenced: IEEE Sensors Journal, IndiaSpend Industrial Safety Reports, WONS 2025
+- 🔒 See [SECURITY.md](./SECURITY.md) for supported versions and how to report vulnerabilities
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guidelines](./CONTRIBUTING.md) and [Code of Conduct](./CODE_OF_CONDUCT.md) first.
+
+- 🐛 Found a bug? [Open an issue](https://github.com/asifahamed-ece/sentinel/issues/new/choose)
+- 💡 Have an idea? [Request a feature](https://github.com/asifahamed-ece/sentinel/issues/new/choose)
+- 📝 Review the [Changelog](./CHANGELOG.md) for release history
+
+## ⚖️ License
+
+This project is licensed under the **Apache License 2.0** — see the [LICENSE](./LICENSE) file.
+
+Copyright © 2026 **Team Core Dumped**. Open for academic, research, and SME deployment showcase use.
 
 ## 👥 Team & Credits
 
 Built by **Team Core Dumped**  
 🎓 *Asif Ahamed S, Akshaya Kumar P, Sarvesh P*  
 Department of Electronics & Communication Engineering, Rajalakshmi Engineering College  
-© 2026 SENTINEL v6.0 – Open for academic & SME deployment showcase.# sentinel
+© 2026 SENTINEL v6.0 · Licensed under [Apache-2.0](./LICENSE)

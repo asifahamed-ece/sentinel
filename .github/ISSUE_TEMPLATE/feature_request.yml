@@ -1,0 +1,58 @@
+name: ✨ Feature Request
+description: Suggest an idea or improvement for SENTINEL
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement! Please search the
+        [existing issues](https://github.com/asifahamed-ece/sentinel/issues) first to see if it has already
+        been requested.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected component
+      description: What does this feature apply to?
+      options:
+        - Worker Node firmware (node_src)
+        - Admin Hub firmware (admin_src)
+        - Web dashboard (docs)
+        - Shared packet protocol (packet_defs.h)
+        - Documentation / README
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What problem does this feature solve? Who benefits?
+      placeholder: "Workers in loud zones can't hear the buzzer; on-screen flash alerts would help..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the feature and how you envision it working.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any alternative approaches you've thought about?
+  - type: textarea
+    id: hardware
+    attributes:
+      label: Hardware implications
+      description: Does this need new sensors, pins, or board changes? List them.
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue you agree to follow our [Code of Conduct](https://github.com/asifahamed-ece/sentinel/blob/main/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
